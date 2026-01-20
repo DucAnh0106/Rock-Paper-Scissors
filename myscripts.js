@@ -18,10 +18,35 @@ function getHumanChoice() {
 //Get the user's input and the computer's choice
 const computerChoice = getComputerChoice();
 const humanChoice = getHumanChoice();
-//intialize 2 variables to store user and computer's score and set their values to 0
 
-//Logic for one round
+//intialize 2 variables to store user and computer's score and set their values to 0
+let computerScore = 0;
+let humanScore = 0;
+
+//Logic for one round (user's choice is case-insensitive)
 //Who wins get the score incremented by 1
+function playRound(humanChoice, computerChoice) {
+    //make user's choice case-insensitive
+    humanChoice = humanChoice.charAt(0).toUpperCase() + humanChoice.slice(1).toLowerCase();
+
+    //Draw
+    if (humanChoice === computerChoice) return `Draw! You both played ${humanChoice}`;
+
+    //Lose
+    if (
+        (humanChoice == "Rock" & computerChoice == "Paper") ||
+        (humanChoice == "Paper" & computerChoice == "Scissor") ||
+        (humanChoice == "Scissor" & computerChoice == "Rock")
+    ) {
+        computerScore++;
+        return `You lose! ${computerChoice} beats ${humanChoice}`;
+    } 
+    //Win
+    else { 
+        humanScore++;
+        return `You win! ${humanChoice} beats ${computerChoice}`;
+    }
+}
 
 //Logic for 5 rounds
 //While user's score or computer's score < 5, repeat the logic for one round
