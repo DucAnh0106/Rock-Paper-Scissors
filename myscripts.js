@@ -15,13 +15,6 @@ function getHumanChoice() {
     let choice = prompt("Rock, Paper or Scissor?",'');
     return choice;
 }
-//Get the user's input and the computer's choice
-const computerChoice = getComputerChoice();
-const humanChoice = getHumanChoice();
-
-//intialize 2 variables to store user and computer's score and set their values to 0
-let computerScore = 0;
-let humanScore = 0;
 
 //Logic for one round (user's choice is case-insensitive)
 //Who wins get the score incremented by 1
@@ -38,16 +31,38 @@ function playRound(humanChoice, computerChoice) {
         (humanChoice == "Paper" & computerChoice == "Scissor") ||
         (humanChoice == "Scissor" & computerChoice == "Rock")
     ) {
-        computerScore++;
-        return `You lose! ${computerChoice} beats ${humanChoice}`;
+        console.log( `You lose! ${computerChoice} beats ${humanChoice}` );
+        return "Lose";
     } 
     //Win
     else { 
-        humanScore++;
-        return `You win! ${humanChoice} beats ${computerChoice}`;
+        console.log( `You win! ${humanChoice} beats ${computerChoice}` );
+        return "Win";
     }
 }
 
 //Logic for 5 rounds
 //While user's score or computer's score < 5, repeat the logic for one round
 //After the loop, check user's score if < 5, prints computer win and else, user wins
+function playGame() {
+    //intialize 2 variables to store user and computer's score and set their values to 0
+    let computerScore = 0;
+    let humanScore = 0;
+
+    //repeat logic for one round
+    while (computerScore < 5 & humanScore < 5) {
+        //Get the user's input and the computer's choice
+        const computerChoice = getComputerChoice();
+        const humanChoice = getHumanChoice();
+
+        //add points
+        (playRound(humanChoice, computerChoice) === "Lose") ? ++computerScore : ++humanScore;
+    }
+    
+    //check who won
+    console.log( (humanScore < 5) ? 'You lose to a computer haha!' : 'You win! Congrats.' );
+}
+
+//Start the game
+playGame();
+
