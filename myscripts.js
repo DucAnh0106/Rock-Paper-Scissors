@@ -1,10 +1,10 @@
 function getComputerChoice() {
     //math floor to round decimal numbers down, math random from 0(inclusive) to 1(exclusive)
-    let num = Math.floor(Math.random() * 12); // get number from 0 to 11 (both inclusive)
+    let num = Math.floor(Math.random() * 3); // get number: 0, 1, 2
     //all have 1/3 chances
-    if (num >= 0 & num < 4) {
+    if (num === 0) {
         return "Scissor";
-    } else if (num >= 4 & num < 8) {
+    } else if (num === 1) {
         return "Rock";
     } else {
         return "Paper";
@@ -50,7 +50,7 @@ function playGame() {
     let humanScore = 0;
 
     //repeat logic for one round
-    while (computerScore < 5 & humanScore < 5) {
+    while (computerScore < 5 && humanScore < 5) {
         //Get the user's input and the computer's choice
         const computerChoice = getComputerChoice();
         const humanChoice = getHumanChoice();
