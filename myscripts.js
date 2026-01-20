@@ -1,4 +1,23 @@
+function getComputerChoice() {
+    //math floor to round decimal numbers down, math random from 0(inclusive) to 1(exclusive)
+    let num = Math.floor(Math.random() * 12); // get number from 0 to 11 (both inclusive)
+    //all have 1/3 chances
+    if (num >= 0 & num < 4) {
+        return "Scissor";
+    } else if (num >= 4 & num < 8) {
+        return "Rock";
+    } else {
+        return "Paper";
+    }
+}
+
+function getHumanChoice() {
+    let choice = prompt("Rock, Paper or Scissor?",'');
+    return choice;
+}
 //Get the user's input and the computer's choice
+const computerChoice = getComputerChoice();
+const humanChoice = getHumanChoice();
 //intialize 2 variables to store user and computer's score and set their values to 0
 
 //Logic for one round
