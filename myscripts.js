@@ -64,5 +64,5 @@ function playGame() {
 }
 
 //Start the game
-playGame();
+//playGame();
 

@@ -1,0 +1,63 @@
+/* Best practice */
+h1, p {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: sans-serif;
+    /* expand body to fit the full webpage */
+    min-height: 100vh;
+    width: 100%;
+    margin: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+#gameBox {
+    border: 1px solid red;
+    padding: 25px 20px;
+}
+
+#buttonBox {
+    border: 1px solid red;
+    margin-bottom: 8px; /* might need adjust */
+
+    display: flex;
+    justify-content: space-around; /* need adjust */
+}
+
+#textBox {
+    border: 1px solid red;
+    margin-bottom: 10px;
+    
+    text-align: center;
+    padding: 15px 65px;
+
+}
+
+#scoreBox {
+    border: 1px solid red;
+    padding: 4px 3px;
+    margin-bottom: 10px;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+#resultBox {
+    border: 1px solid red;
+
+    height: 30px;
+}
+
+
+
+
