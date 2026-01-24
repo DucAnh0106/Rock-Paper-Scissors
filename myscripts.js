@@ -11,13 +11,8 @@ function getComputerChoice() {
     }
 }
 
-function getHumanChoice() {
-    let choice = prompt("Rock, Paper or Scissor?",'');
-    return choice;
-}
-
 //Logic for one round (user's choice is case-insensitive)
-//Who wins get the score incremented by 1
+//Who wins get the score incremented by 1 and print out winning message
 function playRound(humanChoice, computerChoice, resultBox) {
     let resultMessages = document.createElement('p');
 
@@ -49,96 +44,90 @@ function playRound(humanChoice, computerChoice, resultBox) {
 }
 
 //Logic for 5 rounds
-//While user's score or computer's score < 5, repeat the logic for one round
-//After the loop, check user's score if < 5, prints computer win and else, user wins
-function playGame(scoreBox) {
-    //intialize 2 variables to store user and computer's score and set their values to 0
+function initGame() {
+    //this part is to declare what's need to refer to during the game
+    const buttonBox = document.querySelector('#buttonsBox');
+    const resultBox = document.querySelector('#resultBox')
+    const humanScoreDisplay = document.querySelector('#scoreBox #human_point');
+    const computerScoreDisplay = document.querySelector('#scoreBox #computer_point')
+
     let computerScore = 0;
     let humanScore = 0;
 
-    //repeat logic for one round
-    while (computerScore < 5 && humanScore < 5) {
-        //Get the user's input and the computer's choice
-        const computerChoice = getComputerChoice();
-        const humanChoice = getHumanChoice();
+    //This part is how the game should be play
+    function playGame(event) {
+        let target = event.target;
+        let humanChoice;
+        let computerChoice;
 
-        //add points
-        (playRound(humanChoice, computerChoice) === "Lose") ? ++computerScore : ++humanScore;
+        switch(target.id) {
+
+            case 'rockButton':
+                humanChoice = "Rock";
+                computerChoice = getComputerChoice();
+
+                roundResult = playRound(humanChoice, computerChoice, resultBox);
+                if (roundResult === 'Lose') {
+                    ++computerScore;
+                } else if (roundResult === 'Win') {
+                    ++humanScore;
+                }
+                break;
+
+            case 'paperButton':
+                humanChoice = "Paper";
+                computerChoice = getComputerChoice();
+
+                roundResult = playRound(humanChoice, computerChoice, resultBox);
+                if (roundResult === 'Lose') {
+                    ++computerScore;
+                } else if (roundResult === 'Win') {
+                    ++humanScore;
+                }
+                break;
+                
+            case 'scissorButton':
+                humanChoice = "Scissor";
+                computerChoice = getComputerChoice();
+
+                roundResult = playRound(humanChoice, computerChoice, resultBox);
+                if (roundResult === 'Lose') {
+                    ++computerScore;
+                } else if (roundResult === 'Win') {
+                    ++humanScore;
+                }
+                break;
+        }
+
+        //update the points after every round
+        humanScoreDisplay.textContent = `PLAYER SCORE: ${humanScore}`;
+        computerScoreDisplay.textContent = `COMPUTER SCORE: ${computerScore}`;
+
+        //The first to 5 points wins the game
+        if (computerScore >= 5) {
+            buttonBox.removeEventListener('click', playGame);
+            let ending = document.createElement('p')
+            ending.textContent = "Game over! You lose to a computer haha!"
+            resultBox.insertBefore(ending, resultBox.firstChild);
+
+        } else if (humanScore >= 5) {
+            buttonBox.removeEventListener('click', playGame);
+            let ending = document.createElement('p')
+            ending.textContent = "You win! Congrats."
+            resultBox.insertBefore(ending, resultBox.firstChild);
+        }
     }
     
-    //check who won
-    console.log( (humanScore < 5) ? 'You lose to a computer haha!' : 'You win! Congrats.' );
+    //click buttons to start playing
+    buttonBox.addEventListener('click', playGame);
 }
 
-//Interact with button
-const buttonBox = document.querySelector('#buttonsBox');
-const resultBox = document.querySelector('#resultBox')
-const playerScoreDisplay = document.querySelector('#scoreBox #player_point');
-const computerScoreDisplay = document.querySelector('#scoreBox #computer_point')
+//Run the game
+initGame();
 
-let computerScore = 0;
-let humanScore = 0;
 
-buttonBox.addEventListener('click', function newPlayGame(event) {
-    let target = event.target;
-    let humanChoice;
-    let computerChoice;
 
-    switch(target.id) {
 
-        case 'rockButton':
-            humanChoice = "Rock";
-            computerChoice = getComputerChoice();
-
-            roundResult = playRound(humanChoice, computerChoice, resultBox);
-            if (roundResult === 'Lose') {
-                ++computerScore;
-            } else if (roundResult === 'Win') {
-                ++humanScore;
-            }
-            break;
-
-        case 'paperButton':
-            humanChoice = "Paper";
-            computerChoice = getComputerChoice();
-
-            roundResult = playRound(humanChoice, computerChoice, resultBox);
-            if (roundResult === 'Lose') {
-                ++computerScore;
-            } else if (roundResult === 'Win') {
-                ++humanScore;
-            }
-            break;
-            
-        case 'scissorButton':
-            humanChoice = "Scissor";
-            computerChoice = getComputerChoice();
-
-            roundResult = playRound(humanChoice, computerChoice, resultBox);
-            if (roundResult === 'Lose') {
-                ++computerScore;
-            } else if (roundResult === 'Win') {
-                ++humanScore;
-            }
-            break;
-    }
-
-    //update the points after every round
-    playerScoreDisplay.textContent = `PLAYER SCORE: ${humanScore}`;
-    computerScoreDisplay.textContent = `COMPUTER SCORE: ${computerScore}`;
-
-    if (computerScore >= 5) {
-        buttonBox.removeEventListener('click', newPlayGame);
-        let ending = document.createElement('p')
-        ending.textContent = "Game over! You lose to a computer haha!"
-        resultBox.insertBefore(ending, resultBox.firstChild);
-    } else if (humanScore >= 5) {
-        buttonBox.removeEventListener('click', newPlayGame);
-        let ending = document.createElement('p')
-        ending.textContent = "You win! Congrats."
-        resultBox.insertBefore(ending, resultBox.firstChild);
-    }
-});
 
 
 
