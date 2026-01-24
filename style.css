@@ -65,6 +65,17 @@ button {
     cursor: pointer;
 }
 
+/* effect for rock button */
+#rockButton:hover {
+    background-color: #a8a6a6;
+    border-bottom-width: 3px;
+}
+
+#rockButton:active {
+    /* color same as hover */
+    border-bottom-width: 1px;
+}
+
 #paperButton {
     border: 0;
     color: #333;
@@ -76,6 +87,17 @@ button {
     cursor: pointer;
 }
 
+/* effect for paper button */
+#paperButton:hover {
+    background-color: rgb(255, 255, 255);
+    border-bottom-width: 3px;
+}
+
+#paperButton:active {
+    /* color same as hover */
+    border-bottom-width: 1px;
+}
+
 #scissorButton {
     border: 0;
     color: white;
@@ -85,6 +107,17 @@ button {
     border-bottom: 4px solid #2879ae;
 
     cursor: pointer;
+}
+
+/* effect for scissors button */
+#scissorButton:hover {
+    background-color: #3292d2;
+    border-bottom-width: 3px;
+}
+
+#scissorButton:active {
+    /* color same as hover */
+    border-bottom-width: 1px;
 }
 
 #textBox {
@@ -139,6 +172,18 @@ button {
     border-bottom: 5px solid rgba(0,0,0,0.2);
 }
 
+/* adding effects to restart button */
+#restartButton:hover {
+    background-color: #D35400;
+    margin-top: 2px;
+    border-bottom-width: 3px;
+}
+
+/* this is when we click the button */
+#restartButton:active {
+    margin-top: 4px;
+    border-bottom-width: 1px;
+}
 
 
 
