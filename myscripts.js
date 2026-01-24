@@ -18,24 +18,26 @@ function getHumanChoice() {
 
 //Logic for one round (user's choice is case-insensitive)
 //Who wins get the score incremented by 1
-function playRound(humanChoice, computerChoice) {
-    //Draw
-    if (humanChoice === computerChoice) return `Draw! You both played ${humanChoice}`;
+function playRound(humanChoice, computerChoice, resultBox) {
+    let resultMessages = document.createElement('p');
 
+    //Draw
+    if (humanChoice === computerChoice) {
+        resultMessages.textContent = `Draw! You both played ${humanChoice}`;
+    }
     //Lose
-    if (
-        (humanChoice == "Rock" & computerChoice == "Paper") ||
-        (humanChoice == "Paper" & computerChoice == "Scissor") ||
-        (humanChoice == "Scissor" & computerChoice == "Rock")
+    else if (
+        (humanChoice === "Rock" && computerChoice === "Paper") ||
+        (humanChoice === "Paper" && computerChoice === "Scissor") ||
+        (humanChoice === "Scissor" && computerChoice === "Rock")
     ) {
-        console.log( `You lose! ${computerChoice} beats ${humanChoice}` );
-        return "Lose";
+        resultMessages.textContent = `You lose! ${computerChoice} beats ${humanChoice}`;
     } 
     //Win
     else { 
-        console.log( `You win! ${humanChoice} beats ${computerChoice}` );
-        return "Win";
+        resultMessages.textContent = `You win! ${humanChoice} beats ${computerChoice}`;
     }
+    resultBox.appendChild(resultMessages);
 }
 
 //Logic for 5 rounds
@@ -69,10 +71,8 @@ const resultBox = document.querySelector('#resultBox')
 
 buttonBox.addEventListener('click', (event) => {
     let target = event.target;
-
     let humanChoice;
     let computerChoice;
-    let resultMessages;
 
     switch(target.id) {
 
@@ -80,30 +80,21 @@ buttonBox.addEventListener('click', (event) => {
             humanChoice = "Rock";
             computerChoice = getComputerChoice();
 
-            resultMessages = document.createElement('p');
-            resultMessages.textContent = `You lose! ${computerChoice} beats ${humanChoice}`;
-
-            resultBox.appendChild(resultMessages);
+            playRound(humanChoice, computerChoice, resultBox);
             break;
 
         case 'paperButton':
             humanChoice = "Paper";
             computerChoice = getComputerChoice();
 
-            resultMessages = document.createElement('p');
-            resultMessages.textContent = `You lose! ${computerChoice} beats ${humanChoice}`;
-
-            resultBox.appendChild(resultMessages);
+            playRound(humanChoice, computerChoice, resultBox);
             break;
             
         case 'scissorButton':
             humanChoice = "Scissor";
             computerChoice = getComputerChoice();
 
-            resultMessages = document.createElement('p');
-            resultMessages.textContent = `You lose! ${computerChoice} beats ${humanChoice}`;
-
-            resultBox.appendChild(resultMessages);
+            playRound(humanChoice, computerChoice, resultBox);
             break;
     }
 });
