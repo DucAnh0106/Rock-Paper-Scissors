@@ -127,10 +127,15 @@ buttonBox.addEventListener('click', function newPlayGame(event) {
     playerScoreDisplay.textContent = `PLAYER SCORE: ${humanScore}`;
     computerScoreDisplay.textContent = `COMPUTER SCORE: ${computerScore}`;
 
-    if (humanScore >= 5 || computerScore >= 5) {
+    if (computerScore >= 5) {
         buttonBox.removeEventListener('click', newPlayGame);
         let ending = document.createElement('p')
-        ending.textContent = "Game over!"
+        ending.textContent = "Game over! You lose to a computer haha!"
+        resultBox.insertBefore(ending, resultBox.firstChild);
+    } else if (humanScore >= 5) {
+        buttonBox.removeEventListener('click', newPlayGame);
+        let ending = document.createElement('p')
+        ending.textContent = "You win! Congrats."
         resultBox.insertBefore(ending, resultBox.firstChild);
     }
 });
