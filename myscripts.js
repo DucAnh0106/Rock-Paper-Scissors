@@ -45,11 +45,12 @@ function playRound(humanChoice, computerChoice, resultBox) {
 
 //Logic for 5 rounds
 function initGame() {
-    //this part is to declare what's need to refer to during the game
+    //this part is to declare what's needed to refer to during the game
     const buttonBox = document.querySelector('#buttonsBox');
     const resultBox = document.querySelector('#resultBox')
     const humanScoreDisplay = document.querySelector('#scoreBox #human_point');
     const computerScoreDisplay = document.querySelector('#scoreBox #computer_point')
+    const restartButton = document.querySelector('#restartButton');
 
     let computerScore = 0;
     let humanScore = 0;
@@ -118,17 +119,14 @@ function initGame() {
         }
     }
     
-    //click buttons to start playing
+    //click attack buttons to start playing
     buttonBox.addEventListener('click', playGame);
+
+    //click restart button to restart the game
+    restartButton.addEventListener('click', () => {
+        window.location.reload(); //this reloads the current page;
+    })
 }
 
 //Run the game
 initGame();
-
-
-
-
-
-
-
-
