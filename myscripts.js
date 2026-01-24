@@ -24,7 +24,7 @@ function playRound(humanChoice, computerChoice, resultBox) {
     //Draw
     if (humanChoice === computerChoice) {
         resultMessages.textContent = `Draw! You both played ${humanChoice}`;
-        resultBox.appendChild(resultMessages);
+        resultBox.insertBefore(resultMessages, resultBox.firstChild);
 
         return "Draw";
     }
@@ -35,14 +35,14 @@ function playRound(humanChoice, computerChoice, resultBox) {
         (humanChoice === "Scissor" && computerChoice === "Rock")
     ) {
         resultMessages.textContent = `You lose! ${computerChoice} beats ${humanChoice}`;
-        resultBox.appendChild(resultMessages);
+        resultBox.insertBefore(resultMessages, resultBox.firstChild);
 
         return "Lose";
     } 
     //Win
     else { 
         resultMessages.textContent = `You win! ${humanChoice} beats ${computerChoice}`;
-        resultBox.appendChild(resultMessages);
+        resultBox.insertBefore(resultMessages, resultBox.firstChild);
 
         return "Win";
     }
@@ -79,7 +79,7 @@ const computerScoreDisplay = document.querySelector('#scoreBox #computer_point')
 let computerScore = 0;
 let humanScore = 0;
 
-buttonBox.addEventListener('click', (event) => {
+buttonBox.addEventListener('click', function newPlayGame(event) {
     let target = event.target;
     let humanChoice;
     let computerChoice;
@@ -90,9 +90,10 @@ buttonBox.addEventListener('click', (event) => {
             humanChoice = "Rock";
             computerChoice = getComputerChoice();
 
-            if (playRound(humanChoice, computerChoice, resultBox) === 'Lose') {
+            roundResult = playRound(humanChoice, computerChoice, resultBox);
+            if (roundResult === 'Lose') {
                 ++computerScore;
-            } else if (playRound(humanChoice, computerChoice, resultBox) === 'Win') {
+            } else if (roundResult === 'Win') {
                 ++humanScore;
             }
             break;
@@ -101,9 +102,10 @@ buttonBox.addEventListener('click', (event) => {
             humanChoice = "Paper";
             computerChoice = getComputerChoice();
 
-            if (playRound(humanChoice, computerChoice, resultBox) === 'Lose') {
+            roundResult = playRound(humanChoice, computerChoice, resultBox);
+            if (roundResult === 'Lose') {
                 ++computerScore;
-            } else if (playRound(humanChoice, computerChoice, resultBox) === 'Win') {
+            } else if (roundResult === 'Win') {
                 ++humanScore;
             }
             break;
@@ -112,9 +114,10 @@ buttonBox.addEventListener('click', (event) => {
             humanChoice = "Scissor";
             computerChoice = getComputerChoice();
 
-            if (playRound(humanChoice, computerChoice, resultBox) === 'Lose') {
+            roundResult = playRound(humanChoice, computerChoice, resultBox);
+            if (roundResult === 'Lose') {
                 ++computerScore;
-            } else if (playRound(humanChoice, computerChoice, resultBox) === 'Win') {
+            } else if (roundResult === 'Win') {
                 ++humanScore;
             }
             break;
@@ -123,7 +126,15 @@ buttonBox.addEventListener('click', (event) => {
     //update the points after every round
     playerScoreDisplay.textContent = `PLAYER SCORE: ${humanScore}`;
     computerScoreDisplay.textContent = `COMPUTER SCORE: ${computerScore}`;
+
+    if (humanScore >= 5 || computerScore >= 5) {
+        buttonBox.removeEventListener('click', newPlayGame);
+        let ending = document.createElement('p')
+        ending.textContent = "Game over!"
+        resultBox.insertBefore(ending, resultBox.firstChild);
+    }
 });
+
 
 
 
