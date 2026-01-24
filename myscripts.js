@@ -19,9 +19,6 @@ function getHumanChoice() {
 //Logic for one round (user's choice is case-insensitive)
 //Who wins get the score incremented by 1
 function playRound(humanChoice, computerChoice) {
-    //make user's choice case-insensitive
-    humanChoice = humanChoice.charAt(0).toUpperCase() + humanChoice.slice(1).toLowerCase();
-
     //Draw
     if (humanChoice === computerChoice) return `Draw! You both played ${humanChoice}`;
 
@@ -65,4 +62,49 @@ function playGame() {
 
 //Start the game
 //playGame();
+
+//Interact with button
+const buttonBox = document.querySelector('#buttonsBox');
+const resultBox = document.querySelector('#resultBox')
+
+buttonBox.addEventListener('click', (event) => {
+    let target = event.target;
+
+    let humanChoice;
+    let computerChoice;
+    let resultMessages;
+
+    switch(target.id) {
+
+        case 'rockButton':
+            humanChoice = "Rock";
+            computerChoice = getComputerChoice();
+
+            resultMessages = document.createElement('p');
+            resultMessages.textContent = `You lose! ${computerChoice} beats ${humanChoice}`;
+
+            resultBox.appendChild(resultMessages);
+            break;
+
+        case 'paperButton':
+            humanChoice = "Paper";
+            computerChoice = getComputerChoice();
+
+            resultMessages = document.createElement('p');
+            resultMessages.textContent = `You lose! ${computerChoice} beats ${humanChoice}`;
+
+            resultBox.appendChild(resultMessages);
+            break;
+            
+        case 'scissorButton':
+            humanChoice = "Scissor";
+            computerChoice = getComputerChoice();
+
+            resultMessages = document.createElement('p');
+            resultMessages.textContent = `You lose! ${computerChoice} beats ${humanChoice}`;
+
+            resultBox.appendChild(resultMessages);
+            break;
+    }
+});
 
