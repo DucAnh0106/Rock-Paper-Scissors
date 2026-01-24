@@ -24,6 +24,9 @@ function playRound(humanChoice, computerChoice, resultBox) {
     //Draw
     if (humanChoice === computerChoice) {
         resultMessages.textContent = `Draw! You both played ${humanChoice}`;
+        resultBox.appendChild(resultMessages);
+
+        return "Draw";
     }
     //Lose
     else if (
@@ -32,18 +35,23 @@ function playRound(humanChoice, computerChoice, resultBox) {
         (humanChoice === "Scissor" && computerChoice === "Rock")
     ) {
         resultMessages.textContent = `You lose! ${computerChoice} beats ${humanChoice}`;
+        resultBox.appendChild(resultMessages);
+
+        return "Lose";
     } 
     //Win
     else { 
         resultMessages.textContent = `You win! ${humanChoice} beats ${computerChoice}`;
+        resultBox.appendChild(resultMessages);
+
+        return "Win";
     }
-    resultBox.appendChild(resultMessages);
 }
 
 //Logic for 5 rounds
 //While user's score or computer's score < 5, repeat the logic for one round
 //After the loop, check user's score if < 5, prints computer win and else, user wins
-function playGame() {
+function playGame(scoreBox) {
     //intialize 2 variables to store user and computer's score and set their values to 0
     let computerScore = 0;
     let humanScore = 0;
@@ -62,12 +70,14 @@ function playGame() {
     console.log( (humanScore < 5) ? 'You lose to a computer haha!' : 'You win! Congrats.' );
 }
 
-//Start the game
-//playGame();
-
 //Interact with button
 const buttonBox = document.querySelector('#buttonsBox');
 const resultBox = document.querySelector('#resultBox')
+const playerScoreDisplay = document.querySelector('#scoreBox #player_point');
+const computerScoreDisplay = document.querySelector('#scoreBox #computer_point')
+
+let computerScore = 0;
+let humanScore = 0;
 
 buttonBox.addEventListener('click', (event) => {
     let target = event.target;
@@ -80,22 +90,40 @@ buttonBox.addEventListener('click', (event) => {
             humanChoice = "Rock";
             computerChoice = getComputerChoice();
 
-            playRound(humanChoice, computerChoice, resultBox);
+            if (playRound(humanChoice, computerChoice, resultBox) === 'Lose') {
+                ++computerScore;
+            } else if (playRound(humanChoice, computerChoice, resultBox) === 'Win') {
+                ++humanScore;
+            }
             break;
 
         case 'paperButton':
             humanChoice = "Paper";
             computerChoice = getComputerChoice();
 
-            playRound(humanChoice, computerChoice, resultBox);
+            if (playRound(humanChoice, computerChoice, resultBox) === 'Lose') {
+                ++computerScore;
+            } else if (playRound(humanChoice, computerChoice, resultBox) === 'Win') {
+                ++humanScore;
+            }
             break;
             
         case 'scissorButton':
             humanChoice = "Scissor";
             computerChoice = getComputerChoice();
 
-            playRound(humanChoice, computerChoice, resultBox);
+            if (playRound(humanChoice, computerChoice, resultBox) === 'Lose') {
+                ++computerScore;
+            } else if (playRound(humanChoice, computerChoice, resultBox) === 'Win') {
+                ++humanScore;
+            }
             break;
     }
+
+    //update the points after every round
+    playerScoreDisplay.textContent = `PLAYER SCORE: ${humanScore}`;
+    computerScoreDisplay.textContent = `COMPUTER SCORE: ${computerScore}`;
 });
+
+
 
